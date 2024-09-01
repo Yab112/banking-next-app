@@ -14,7 +14,7 @@ import {
   Form
 } from "@/components/ui/form";
 import { sign } from "crypto";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 
 const AuthForm = ({ type }: { type: string }) => {
   const router = useRouter();
