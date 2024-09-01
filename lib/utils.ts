@@ -2,6 +2,7 @@
 import { type ClassValue, clsx } from "clsx";
 import qs from "query-string";
 import { twMerge } from "tailwind-merge";
+import { z } from "zod";
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
@@ -193,3 +194,27 @@ export const getTransactionStatus = (date: Date) => {
 
   return date > twoDaysAgo ? "Processing" : "Success";
 };
+
+
+export const authformSchema = (type: string) => z.object({
+  email: z
+    .string()
+    .email("Please enter a valid email address")
+    .regex(/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[A-Za-z]{2,}$/, "Please enter a valid email address"),
+  password: z
+    .string()
+    .min(6, "Password must be at least 6 characters long")
+    .max(20, "Password must be at most 20 characters long")
+    .regex(/[A-Z]/, "Password must contain at least one uppercase letter")
+    .regex(/[a-z]/, "Password must contain at least one lowercase letter")
+    .regex(/\d/, "Password must contain at least one digit")
+    .regex(/[@$!%*?&#]/, "Password must contain at least one special character"),
+  firstName: type === 'sign-up' ? z.string().min(3, "First name must be at least 3 characters long").max(20, "First name must be at most 20 characters long").regex(/^[a-zA-Z]+$/, "First name can only contain letters") : z.string().optional(),
+  lastName: type === 'sign-up' ? z.string().min(3, "Last name must be at least 3 characters long").max(20, "Last name must be at most 20 characters long").regex(/^[a-zA-Z]+$/, "Last name can only contain letters") : z.string().optional(),
+  Address: type === 'sign-up' ? z.string().min(3, "Address must be at least 3 characters long").max(50, "Address must be at most 50 characters long").regex(/^[a-zA-Z0-9\s]+$/, "Address can only contain letters, numbers, and spaces") : z.string().optional(),
+  State: type === 'sign-up' ? z.string().min(3, "State must be at least 3 characters long").max(20, "State must be at most 20 characters long").regex(/^[a-zA-Z\s]+$/, "State can only contain letters and spaces") : z.string().optional(),
+  postalCode: type === 'sign-up' ? z.string().min(3, "Postal code must be at least 3 characters long").max(10, "Postal code must be at most 10 characters long").regex(/^[0-9]+$/, "Postal code can only contain numbers") : z.string().optional(),
+  dateOfBirth: type === 'sign-up' ? z.string().regex(/^\d{4}-\d{2}-\d{2}$/, "Date of birth must be in YYYY-MM-DD format") : z.string().optional(),
+  ssn: type === 'sign-up' ? z.string().min(3, "SSN must be at least 3 characters long").max(20, "SSN must be at most 20 characters long").regex(/^[0-9]+$/, "SSN can only contain numbers") : z.string().optional(),
+  city: type === 'sign-up' ? z.string().min(3, "City must be at least 3 characters long").max(20, "City must be at most 20 characters long").regex(/^[a-zA-Z\s]+$/, "City can only contain letters and spaces") : z.string().optional(),
+});

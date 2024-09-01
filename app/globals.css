@@ -276,11 +276,11 @@
 
   /* Auth Form */
   .auth-form {
-    @apply flex min-h-screen w-full max-w-[420px] flex-col justify-center gap-5 py-10 md:gap-8;
+    @apply flex min-h-screen my-auto w-full max-w-[420px] flex-col justify-center gap-5 ml-6 py-10 md:gap-8;
   }
 
   .form-item {
-    @apply flex flex-col gap-1.5;
+    @apply flex flex-col gap-1;
   }
 
   .form-label {

@@ -1,8 +1,10 @@
+import AuthForm from "@/components/AuthForm"
+
 const SignUp = () => {
   return (
-    <div>
-      <h1>log in</h1>
-    </div>
+    <section className="flex-cneter size-full max-sm:px-6">
+       <AuthForm type="sign-up" />
+    </section>
   )
 }
 

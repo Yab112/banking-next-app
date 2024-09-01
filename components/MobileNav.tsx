@@ -77,7 +77,7 @@ const MobileNav = ({ user }: MobileNavProps) => {
                     </SheetClose>
                   );
                 })}
-               USER 
+                USER
               </nav>
             </SheetClose>
             FOOTER
