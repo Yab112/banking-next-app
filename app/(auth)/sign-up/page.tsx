@@ -5,7 +5,7 @@ const SignUp =async () => {
   const Loggeduser = await getLoggedInUser();
   console.log(Loggeduser)
   return (
-    <section className="flex-cneter size-full max-sm:px-6">
+    <section className="flex-center size-full max-sm:px-6">
        <AuthForm type="sign-up" />
     </section>
   )

@@ -51,19 +51,13 @@ const AuthForm = ({ type }: { type: string }) => {
           const newUser = await SignUp(values);
           setUser(newUser);
         }
-        else {
-          const userData = {
+        if(type === 'sign-in') {
+          const response = await SignIn({
             email: values.email,
             password: values.password,
-          }
-          const response = await SignIn(userData);
-          setUser(user);
-          if(response){
-            router.push("/");
-          }
-          else{
-            console.log("error")
-          }
+          })
+
+          if(response) router.push('/sign-in')
         }
       } catch (error) {
          
@@ -77,7 +71,7 @@ const AuthForm = ({ type }: { type: string }) => {
 
   return (
     <section className="auth-form ">
-      <header className="flex flex-col md:gap-8">
+      <header className="flex flex-col md:gap-8 ">
         <Link href="/" className="cursor-pointer items-center gap-2 flex px-4">
           <Image src="/icons/logo.svg" width={30} height={30} alt="logo" />
           <h1 className="text-26 font-bold text-black-1 text-ibm-plex-serif">

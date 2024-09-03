@@ -36,8 +36,6 @@ catch{
     console.log(error)
 }
 }
-// ... your initilization functions
-
 export async function getLoggedInUser() {
     try {
       const { account } = await createSessionClient();
@@ -48,4 +46,19 @@ export async function getLoggedInUser() {
       return null;
     }
   }
+  export const legoutAccount = async () => {
+    try {
+      const { account } = await createSessionClient();
+      
+      // Delete the session cookie
+      cookies().delete('appwrite-session');
+  
+      // Delete the current session
+      await account.deleteSession('current');
+      return true;
+    } catch (error) {
+      console.error('Error logging out:', error);
+      return false;
+    }
+  };
   
