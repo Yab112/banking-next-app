@@ -15,11 +15,13 @@ import {
 } from "@/components/ui/form";
 import { sign } from "crypto";
 import { useRouter } from "next/navigation";
+import { getLoggedInUser, SignIn, SignUp } from "@/lib/actions/user.action";
 
 const AuthForm = ({ type }: { type: string }) => {
   const router = useRouter();
   const [user, setUser] = useState(null);
   const [isloading, setisloading] = useState(false);
+  // const Loggeduser = await getLoggedInUser();
 
   const formSchema = authformSchema(type)
 
@@ -45,33 +47,23 @@ const AuthForm = ({ type }: { type: string }) => {
     setisloading(true);
       try {
         if (type === "sign-up") {
-          const userData = {
-            fistName: values.firstName,
-            lastName: values.lastName,
-            email: values.email,
-            password: values.password,
-            dateOfBirth: values.dateOfBirth,
-            Address : values.Address,
-            State : values.State,
-            postalCode: values.postalCode,
-            ssn: values.ssn,
-          }
-          // const newUser = await signUp(userData);
-          // setUser(newUser);
+
+          const newUser = await SignUp(values);
+          setUser(newUser);
         }
         else {
           const userData = {
             email: values.email,
             password: values.password,
           }
-          // const response = await signIn(userData);
-          // setUser(user);
-          // if(response){
-          //   router.push("/dashboard");
-          // }
-          // else{
-          //   console.log("error")
-          // }
+          const response = await SignIn(userData);
+          setUser(user);
+          if(response){
+            router.push("/");
+          }
+          else{
+            console.log("error")
+          }
         }
       } catch (error) {
          
